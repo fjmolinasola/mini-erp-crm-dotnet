@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../../tests/MiniErpCrm.Tests/MiniErpCrm.Tests.csproj" Id="7b1dcc34-cc0b-4971-9db5-688e8cfa4da4" />
   <Project Path="MiniErpCrm.Api/MiniErpCrm.Api.csproj" />
 </Solution>

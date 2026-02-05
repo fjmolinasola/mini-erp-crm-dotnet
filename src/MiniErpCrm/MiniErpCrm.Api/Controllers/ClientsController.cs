@@ -16,9 +16,9 @@ public class ClientsController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<ClientDto>> GetAll()
+    public async Task<ActionResult<IEnumerable<ClientDto>>> GetAll()
     {
-        var clients = _clientService.GetAll();
+        var clients = await _clientService.GetAllAsync();
         return Ok(clients);
     }
 }

@@ -1,15 +1,27 @@
-﻿using MiniErpCrm.Api.Dtos;
+﻿using Microsoft.EntityFrameworkCore;
+using MiniErpCrm.Api.Data;
+using MiniErpCrm.Api.Dtos;
 
 namespace MiniErpCrm.Api.Services;
 
 public class ClientService
 {
-    public IReadOnlyList<ClientDto> GetAll()
+    private readonly AppDbContext _db;
+
+    public ClientService(AppDbContext db)
     {
-        return new List<ClientDto>
-        {
-            new() { Id = 1, Name = "Cliente Demo 1" },
-            new() { Id = 2, Name = "Cliente Demo 2" }
-        };
+        _db = db;
+    }
+
+    public async Task<IReadOnlyList<ClientDto>> GetAllAsync()
+    {
+        return await _db.Clients
+            .AsNoTracking()
+            .Select(c => new ClientDto
+            {
+                Id = c.Id,
+                Name = c.Name
+            })
+            .ToListAsync();
     }
 }

@@ -33,4 +33,27 @@ public class ClientsController : ControllerBase
             created
         );
     }
+    
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Update(int id, [FromBody] UpdateClientRequest request)
+    {
+        var updated = await _clientService.UpdateAsync(id, request);
+
+        if (updated is null)
+            return NotFound();
+
+        return Ok(updated);
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await _clientService.DeleteAsync(id);
+
+        if (!deleted)
+            return NotFound();
+
+        return NoContent();
+    }
+
 }

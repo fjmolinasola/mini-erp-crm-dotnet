@@ -39,4 +39,33 @@ public class ClientService
             Name = client.Name
         };
     }
+    public async Task<ClientDto?> UpdateAsync(int id, UpdateClientRequest request)
+    {
+        var client = await _db.Clients.FindAsync(id);
+
+        if (client is null)
+            return null;
+
+        client.Name = request.Name;
+        await _db.SaveChangesAsync();
+
+        return new ClientDto
+        {
+            Id = client.Id,
+            Name = client.Name
+        };
+    }
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var client = await _db.Clients.FindAsync(id);
+
+        if (client is null)
+            return false;
+
+        _db.Clients.Remove(client);
+        await _db.SaveChangesAsync();
+
+        return true;
+    }
+
 }
